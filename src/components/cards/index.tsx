@@ -1,4 +1,4 @@
-import React from 'react'
+import React , { useState } from 'react'
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Card } from 'antd';
 import { Link } from 'react-router-dom'
@@ -20,7 +20,6 @@ export default function Cards({item}:any) {
       />
     }
     actions={[
-      <EditOutlined key="edit" />,
       <Link to={`/phamarcy/${item._id}`}><EllipsisOutlined key="ellipsis" /><EllipsisOutlined key="ellipsis" /></Link>
     ]}
   >

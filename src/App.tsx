@@ -16,6 +16,7 @@ import './reset.css'
 import Register from './pages/auth/register';
 import Phamarcy from './pages/phamarcy';
 import PhamarcyDetail from './pages/phamarcy-detail';
+import PhamarcyCreate from './pages/phamarcyCreate';
 
 
 
@@ -27,6 +28,7 @@ class App extends Component {
       <div id="content">
         <Routes>
       <Route path='/' element={<Phamarcy/>}/>
+      <Route path='/phamarcy/create' element={<PhamarcyCreate/>}/>
       <Route path='/phamarcy/:phamarcy_id' element={<PhamarcyDetail/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/register' element={<Register/>}/>

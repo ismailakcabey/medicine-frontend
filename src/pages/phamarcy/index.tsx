@@ -7,15 +7,15 @@ import {
     Alert,
     AlertIcon,
     AlertTitle,
-    AlertDescription,
+    Button
 } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 interface IItem {  
     phamarcyName: string,
     adress: string
    }
 
 function Phamarcy() {
-
     const { isLoading, error, data } = useQuery('phamarcy', fetchPhamarcyList)
  
     if (isLoading) {
@@ -37,6 +37,12 @@ function Phamarcy() {
     }
     return (
         <div>
+            <Link to="/phamarcy/create">
+            <Button my={5} colorScheme='blue'  id="button" type='submit'>
+                    Eczane Oluştur
+                </Button>
+                
+            </Link>
             <Grid templateColumns='repeat(5, 1fr)' gap={6}>
         {data?.data?.map((item:IItem,key:any)=>{
             return(
@@ -45,6 +51,7 @@ function Phamarcy() {
         })}
       
     </Grid>
+            
         </div>
       )
 }

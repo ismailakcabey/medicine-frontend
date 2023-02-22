@@ -11,6 +11,8 @@ import {
 } from '@chakra-ui/react'
 import styles from './styles.module.css'
 import moment from 'moment';
+import PhamarcyCreateModel from '../../components/models/phamarcyCreate';
+
 export default function PharmacyDetail() {
     const { phamarcy_id } = useParams();
     const { isLoading, error, data } = useQuery(["phamarcy", phamarcy_id], () => fetchPhamarcyById(phamarcy_id))
@@ -34,11 +36,8 @@ export default function PharmacyDetail() {
     console.log(data)
     return (
         <>
-            <Link to="/login">
-                <Button id={styles.button} type="primary" size="large">
-                    Güncelle
-                </Button>
-            </Link>
+                <PhamarcyCreateModel/>
+            
                 <Button onClick={()=>fetchPhamarcyByIdDelete(phamarcy_id)} id={styles.button} type="primary" danger size="large">
                     Sil
                 </Button>
