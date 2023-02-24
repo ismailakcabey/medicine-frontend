@@ -17,6 +17,8 @@ import Register from './pages/auth/register';
 import Phamarcy from './pages/phamarcy';
 import PhamarcyDetail from './pages/phamarcy-detail';
 import PhamarcyCreate from './pages/phamarcyCreate';
+import User from './pages/user';
+import UserDetail from './pages/user-detail';
 
 
 
@@ -28,8 +30,10 @@ class App extends Component {
       <div id="content">
         <Routes>
       <Route path='/' element={<Phamarcy/>}/>
+      <Route path='/user' element={<User/>}/>
       <Route path='/phamarcy/create' element={<PhamarcyCreate/>}/>
       <Route path='/phamarcy/:phamarcy_id' element={<PhamarcyDetail/>}/>
+      <Route path='/users/:user_id' element={<UserDetail/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/register' element={<Register/>}/>
       </Routes>

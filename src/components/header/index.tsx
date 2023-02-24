@@ -1,17 +1,27 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
-import { DownloadOutlined } from '@ant-design/icons';
-import { Button, Radio, Space, Divider } from 'antd';
-import type { SizeType } from 'antd/es/config-provider/SizeContext';
-import { Stack } from '@chakra-ui/react'
-export default class Header extends Component {
-    render() {
+import { Button} from 'antd';
+import { UserContext } from '../../context/AuthContext';
+export default function Heade() {
+    const { user, setUser } = useContext(UserContext);
+
+  const handleLogin = () => {
+    console.log('logine bastın')
+    const newUser = {
+      name: "111111",
+      email: "11111111",
+    };
+    console.log(newUser)
+    setUser(newUser);
+    console.log(user)
+  };
         return (
             <nav className={styles.nav}>
                 <div className={styles.left}>
                     <div className={styles.logo}>
                         <Link to="/">eMedicine</Link>
+                        
                     </div>
                     <ul className={styles.menu}>
                         <li>
@@ -21,7 +31,7 @@ export default class Header extends Component {
                             <Link to="/">İlaçlar</Link>
                         </li>
                         <li>
-                            <Link to="/">Kullanıcılar</Link>
+                            <Link to="/user">Kullanıcılar</Link>
                         </li>
                         <li>
                             <Link to="/">Siparişler</Link>
@@ -29,6 +39,7 @@ export default class Header extends Component {
                         <li>
                             <Link to="/">Dağıtıcılar</Link>
                         </li>
+                        
                     </ul>
                 </div>
                 <div className={styles.rigth}>
@@ -46,7 +57,30 @@ export default class Header extends Component {
 
 
                 </div>
+                {user ? (
+        <>
+          <p>Welcome, 
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            {user.name} 
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            {user.email}</p>
+          <button onClick={() => setUser(null)}>Logout</button>
+        </>
+      ) : (
+        <button onClick={handleLogin}>Login</button>
+      )}
             </nav>
         )
     }
-}

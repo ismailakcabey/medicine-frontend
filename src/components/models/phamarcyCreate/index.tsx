@@ -23,7 +23,6 @@ export default function PhamarcyCreateModel() {
     },
     validationSchema,
     onSubmit: async (values, bag) => {
-        console.log("submite geldi");
         try {
             if (!values.phamarcyName) {
                 bag.setErrors({ phamarcyName: 'Please enter a valid phamarcy name' });

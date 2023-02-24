@@ -3,7 +3,7 @@ export const fetchPhamarcyList = async()=>{
     const {data} =  await axios.get(`http://localhost:3000/phamarcy`,{
         withCredentials: true,
         headers:{
-            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWE3MzI4MGYxNDYyZmMyNWM0NTc4MSIsImlhdCI6MTY3NzA2MzU2MywiZXhwIjoxNjc3MTQ5OTYzfQ.TEaUyhKvRZ6e0H1FhzWMMVyJC2sCBy5xlZ2Z6y3ov6U",
+            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWE3MzI4MGYxNDYyZmMyNWM0NTc4MSIsImlhdCI6MTY3NzIzNzI0MiwiZXhwIjoxNjc3MzIzNjQyfQ.VRHDVdX9566WO56gdcSdukNS8mKH4FKpMPSHtFdqmbo",
         },
     })
     return data
@@ -15,7 +15,7 @@ export const fetchPhamarcyById = async(id:any)=>{
     {
         withCredentials: true,
         headers:{
-            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWE3MzI4MGYxNDYyZmMyNWM0NTc4MSIsImlhdCI6MTY3NzA2MzU2MywiZXhwIjoxNjc3MTQ5OTYzfQ.TEaUyhKvRZ6e0H1FhzWMMVyJC2sCBy5xlZ2Z6y3ov6U",
+            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWE3MzI4MGYxNDYyZmMyNWM0NTc4MSIsImlhdCI6MTY3NzIzNzI0MiwiZXhwIjoxNjc3MzIzNjQyfQ.VRHDVdX9566WO56gdcSdukNS8mKH4FKpMPSHtFdqmbo",
         },
     }
     )
@@ -27,7 +27,7 @@ export const fetchPhamarcyByIdDelete = async(id:any)=>{
     {
         withCredentials: true,
         headers:{
-            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWE3MzI4MGYxNDYyZmMyNWM0NTc4MSIsImlhdCI6MTY3NzA2MzU2MywiZXhwIjoxNjc3MTQ5OTYzfQ.TEaUyhKvRZ6e0H1FhzWMMVyJC2sCBy5xlZ2Z6y3ov6U",
+            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWE3MzI4MGYxNDYyZmMyNWM0NTc4MSIsImlhdCI6MTY3NzIzNzI0MiwiZXhwIjoxNjc3MzIzNjQyfQ.VRHDVdX9566WO56gdcSdukNS8mKH4FKpMPSHtFdqmbo",
         },
     })
     return data
@@ -37,7 +37,7 @@ export const fetchPhamarcyByIdUpdate = async(id:any,req:any)=>{
     const {data} =  await axios.patch(`http://localhost:3000/phamarcy/${id}`,req,{
         withCredentials: true,
         headers:{
-            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWE3MzI4MGYxNDYyZmMyNWM0NTc4MSIsImlhdCI6MTY3NzA2MzU2MywiZXhwIjoxNjc3MTQ5OTYzfQ.TEaUyhKvRZ6e0H1FhzWMMVyJC2sCBy5xlZ2Z6y3ov6U",
+            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWE3MzI4MGYxNDYyZmMyNWM0NTc4MSIsImlhdCI6MTY3NzIzNzI0MiwiZXhwIjoxNjc3MzIzNjQyfQ.VRHDVdX9566WO56gdcSdukNS8mKH4FKpMPSHtFdqmbo",
         },
     })
     return data
@@ -48,7 +48,7 @@ export const fetchPhamarcyCreate = async(req:any)=>{
     const {data} =  await axios.post(`http://localhost:3000/phamarcy/`,req,{
         withCredentials: true,
         headers:{
-            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWE3MzI4MGYxNDYyZmMyNWM0NTc4MSIsImlhdCI6MTY3NzA2MzU2MywiZXhwIjoxNjc3MTQ5OTYzfQ.TEaUyhKvRZ6e0H1FhzWMMVyJC2sCBy5xlZ2Z6y3ov6U",
+            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWE3MzI4MGYxNDYyZmMyNWM0NTc4MSIsImlhdCI6MTY3NzIzNzI0MiwiZXhwIjoxNjc3MzIzNjQyfQ.VRHDVdX9566WO56gdcSdukNS8mKH4FKpMPSHtFdqmbo",
         },
     })
     return data

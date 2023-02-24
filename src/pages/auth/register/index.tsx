@@ -3,7 +3,6 @@ import { FormControl, FormLabel, Heading, Box, Flex, Input, Button, Alert } from
 import { useFormik } from 'formik'
 import { postUser } from '../../../services/user/user.service'
 import validationSchema from './validate'
-import { useAuth ,AuthProvider} from '../../../context/AuthContext'
 export default function Register() {
     const formik = useFormik({
         initialValues: {

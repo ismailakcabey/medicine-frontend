@@ -33,7 +33,6 @@ export default function PharmacyDetail() {
             </Alert>
         )
     }
-    console.log(data)
     return (
         <>
                 <PhamarcyCreateModel/>

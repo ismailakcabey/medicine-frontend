@@ -8,8 +8,7 @@ import Header from './components/header';
 import { ChakraProvider } from '@chakra-ui/react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { AuthProvider } from './context/AuthContext';
-
+import UserProvider from './context/AuthContext';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -25,13 +24,12 @@ root.render(
   <QueryClientProvider client={queryClient}>
     <ChakraProvider>
       <React.StrictMode>
+        <UserProvider>
         <BrowserRouter>
           <Header></Header>
-          {/* <AuthProvider>
-            
-          </AuthProvider> */}
           <App />
         </BrowserRouter>
+        </UserProvider>
       </React.StrictMode>
       <ReactQueryDevtools initialIsOpen={false} />
     </ChakraProvider>
