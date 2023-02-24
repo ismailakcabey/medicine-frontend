@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useQuery } from 'react-query'
 import { useParams, Link } from 'react-router-dom'
 import { fetchPhamarcyById , fetchPhamarcyByIdDelete, fetchPhamarcyCreate} from '../../services/phamarcy/phamarcy.service';
@@ -18,7 +18,9 @@ import styles from './styles.module.css'
 import moment from 'moment';
 import { useFormik } from 'formik';
 import validationSchema from './validate'
+import { UserContext } from '../../context/AuthContext';
 export default function PhamarcyCreate() {
+    const { user, setUser } = useContext(UserContext);
     const formik = useFormik({
         initialValues: {
             phamarcyName:"",
@@ -37,7 +39,7 @@ export default function PhamarcyCreate() {
                   if (!values.adress) {
                     bag.setErrors({ phoneNumber: 'Please enter a valid adress' });
                   }
-                const data = fetchPhamarcyCreate(values)
+                const data = fetchPhamarcyCreate(values,user?.token)
                 console.log(data);
             } catch (error) {
                 console.log("bilinmeyen bir hata oluştu")

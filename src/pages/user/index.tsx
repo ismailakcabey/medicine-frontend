@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Grid } from '@chakra-ui/react'
 import { useQuery, useInfiniteQuery } from 'react-query'
 import {
@@ -21,8 +21,11 @@ import {
 } from '@chakra-ui/react'
 import { Descriptions, Badge, Button } from 'antd';
 import UserUpdateModel from '../../components/models/userUpdate'
+import { UserContext } from '../../context/AuthContext'
+
 export default function User() {
-    const { isLoading, error, data } = useQuery('user', fetchUserList)
+    const { user, setUser } = useContext(UserContext);
+    const { isLoading, error, data } = useQuery('user',() => fetchUserList(user?.token))
     if (isLoading) {
         return (
             <Alert status='warning'>
@@ -31,7 +34,14 @@ export default function User() {
             </Alert>
         )
     }
-
+    if(user?.token == undefined){
+        return(
+            <Alert status='warning'>
+                <AlertIcon />
+                Önce Giriş Yapın
+            </Alert>
+        )
+    }
     if (error) {
         return (
             <Alert status='error'>
@@ -70,7 +80,7 @@ export default function User() {
                                         </Button>
                                         </Link>
                                     </Td>
-                                    <Td><Button onClick={() => deleteUser(item?._id)} type="primary" danger size="large">
+                                    <Td><Button onClick={() => deleteUser(item?._id , user?.token)} type="primary" danger size="large">
                                         Sil
                                     </Button></Td>
                                 </Tr>

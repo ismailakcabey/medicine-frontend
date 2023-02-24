@@ -9,6 +9,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import UserProvider from './context/AuthContext';
+import Simple from './components/responsiveHeader';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -26,7 +27,7 @@ root.render(
       <React.StrictMode>
         <UserProvider>
         <BrowserRouter>
-          <Header></Header>
+          <Simple></Simple>
           <App />
         </BrowserRouter>
         </UserProvider>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useQuery } from 'react-query'
 import { useParams, Link } from 'react-router-dom'
 import { fetchPhamarcyById , fetchPhamarcyByIdDelete} from '../../services/phamarcy/phamarcy.service';
@@ -12,10 +12,12 @@ import {
 import styles from './styles.module.css'
 import moment from 'moment';
 import PhamarcyCreateModel from '../../components/models/phamarcyCreate';
+import { UserContext } from '../../context/AuthContext';
 
 export default function PharmacyDetail() {
+    const { user, setUser } = useContext(UserContext);
     const { phamarcy_id } = useParams();
-    const { isLoading, error, data } = useQuery(["phamarcy", phamarcy_id], () => fetchPhamarcyById(phamarcy_id))
+    const { isLoading, error, data } = useQuery(["phamarcy", phamarcy_id], () => fetchPhamarcyById(phamarcy_id,user?.token))
     if (isLoading) {
         return (
             <Alert status='warning'>
@@ -37,7 +39,7 @@ export default function PharmacyDetail() {
         <>
                 <PhamarcyCreateModel/>
             
-                <Button onClick={()=>fetchPhamarcyByIdDelete(phamarcy_id)} id={styles.button} type="primary" danger size="large">
+                <Button onClick={()=>fetchPhamarcyByIdDelete(phamarcy_id,user?.token)} id={styles.button} type="primary" danger size="large">
                     Sil
                 </Button>
             <Descriptions title="Eczane Bilgileri" bordered>

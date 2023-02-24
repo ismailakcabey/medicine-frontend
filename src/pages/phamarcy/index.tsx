@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
 import Cards from '../../components/cards'
-import { Grid } from '@chakra-ui/react'
+import { Grid, SimpleGrid } from '@chakra-ui/react'
 import { useQuery , useInfiniteQuery} from 'react-query'
 import { fetchPhamarcyList } from '../../services/phamarcy/phamarcy.service'
 import {
@@ -10,14 +10,15 @@ import {
     Button
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
+import { UserContext } from '../../context/AuthContext'
 interface IItem {  
     phamarcyName: string,
     adress: string
    }
 
 function Phamarcy() {
-    const { isLoading, error, data } = useQuery('phamarcy', fetchPhamarcyList)
- 
+    const { user, setUser } = useContext(UserContext);
+    const { isLoading, error, data } = useQuery('phamarcy', ()=>fetchPhamarcyList(user?.token))
     if (isLoading) {
         return (
             <Alert status='warning'>
@@ -26,7 +27,14 @@ function Phamarcy() {
             </Alert>
         )
     }
-    
+    if(user?.token == undefined){
+        return(
+            <Alert status='warning'>
+                <AlertIcon />
+                Önce Giriş Yapın
+            </Alert>
+        )
+    }
     if (error) {
         return (
             <Alert status='error'>
@@ -43,14 +51,14 @@ function Phamarcy() {
                 </Button>
                 
             </Link>
-            <Grid templateColumns='repeat(5, 1fr)' gap={6}>
+            <SimpleGrid minChildWidth='120px' spacing='40px'>
         {data?.data?.map((item:IItem,key:any)=>{
             return(
                 <Cards key={key} item={item}/>
             )
         })}
       
-    </Grid>
+    </SimpleGrid>
             
         </div>
       )

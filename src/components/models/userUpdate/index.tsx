@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React , {useContext, useState} from 'react'
 import "./Model.css";
 import { Descriptions, Badge } from 'antd';
 import { useParams, Link } from 'react-router-dom'
@@ -15,6 +15,7 @@ import {
     AlertDescription,
   } from '@chakra-ui/react'
 import { fetchUserById, updateUserById } from '../../../services/user/user.service';
+import { UserContext } from '../../../context/AuthContext';
 
 const AlertComponent = ({ data }: any) => {
     if (data) {
@@ -31,6 +32,7 @@ const AlertComponent = ({ data }: any) => {
   };
 
 export default function UserUpdateModel() {
+  const { user, setUser } = useContext(UserContext);
    const [modal, setModal] = useState(false);
    const { user_id } = useParams();
    const {
@@ -39,7 +41,7 @@ export default function UserUpdateModel() {
     onOpen,
   } = useDisclosure({ defaultIsOpen: true })
 
-   const { isLoading, error, data } = useQuery(["user", user_id], () => fetchUserById(user_id))
+   const { isLoading, error, data } = useQuery(["user", user_id], () => fetchUserById(user_id,user?.token))
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -68,7 +70,7 @@ export default function UserUpdateModel() {
               if (!values.identityId) {
                 bag.setErrors({ identityId: 'Please enter a valid adress' });
               }
-            const data = updateUserById(user_id, values)
+            const data = updateUserById(user_id, values , user?.token)
             // @ts-ignore
               if(data?.status == true){
                 updateUserStatus = true

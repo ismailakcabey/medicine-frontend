@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Descriptions, Badge, Button } from 'antd';
 import {
     Alert,
@@ -12,9 +12,11 @@ import { useParams, Link } from 'react-router-dom'
 import { deleteUser, fetchUserById } from '../../services/user/user.service';
 import UserUpdateModel from '../../components/models/userUpdate';
 import styles from './styles.module.css'
+import { UserContext } from '../../context/AuthContext';
 export default function UserDetail() {
+    const { user, setUser } = useContext(UserContext);
     const { user_id } = useParams();
-    const { isLoading, error, data } = useQuery(["user", user_id], () => fetchUserById(user_id))
+    const { isLoading, error, data } = useQuery(["user", user_id], () => fetchUserById(user_id,user?.token))
     if (isLoading) {
         return (
             <Alert status='warning'>
@@ -36,7 +38,7 @@ export default function UserDetail() {
 
     <UserUpdateModel/>
 
-    <Button onClick={()=>deleteUser(data.data._id)} id={styles.button} type="primary" danger size="large">
+    <Button onClick={()=>deleteUser(data.data._id , user?.token)} id={styles.button} type="primary" danger size="large">
         Sil
     </Button>
 <Descriptions title="Kullanıcı Bilgileri" bordered>

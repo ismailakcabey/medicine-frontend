@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React , {useContext, useState} from 'react'
 import "./Model.css";
 import { Descriptions, Badge } from 'antd';
 import { useParams, Link } from 'react-router-dom'
@@ -8,10 +8,12 @@ import { useQuery } from 'react-query';
 import { FormControl, FormLabel, Heading, Box, Flex, Input, Alert , Button} from '@chakra-ui/react'
 import validationSchema from './validate'
 import { useFormik } from 'formik'
+import { UserContext } from '../../../context/AuthContext';
 export default function PhamarcyCreateModel() {
+    const { user, setUser } = useContext(UserContext);
    const [modal, setModal] = useState(false);
    const { phamarcy_id } = useParams();
-   const { isLoading, error, data } = useQuery(["phamarcy", phamarcy_id], () => fetchPhamarcyById(phamarcy_id))
+   const { isLoading, error, data } = useQuery(["phamarcy", phamarcy_id], () => fetchPhamarcyById(phamarcy_id,user?.token))
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -33,7 +35,7 @@ export default function PhamarcyCreateModel() {
               if (!values.adress) {
                 bag.setErrors({ phoneNumber: 'Please enter a valid adress' });
               }
-            const data = fetchPhamarcyByIdUpdate(phamarcy_id,values)
+            const data = fetchPhamarcyByIdUpdate(phamarcy_id,values,user?.token)
             console.log(data);
         } catch (error) {
             console.log("bilinmeyen bir hata oluştu")

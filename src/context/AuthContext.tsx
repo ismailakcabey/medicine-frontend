@@ -68,12 +68,40 @@ import React, { createContext, useState } from 'react';
 
 interface UserContextType {
     user: {
-      name: string;
-      email: string;
+        fullName: string;
+        mail: string;
+        _id: string;
+        deleted: boolean;
+        createdDate: Date;
+        updatedDate: Date;
+        password: string;
+        isMail: boolean;
+        phamarcyId: string;
+        adress: string;
+        createdById: string;
+        updatedById: string;
+        identityId:string;
+        role: number;
+        phoneNumber: string;
+        token: string;
     } | null;
     setUser: React.Dispatch<React.SetStateAction<{
-      name: string;
-      email: string;
+        fullName: string;
+        mail: string;
+        _id: string;
+        deleted: boolean;
+        createdDate: Date;
+        updatedDate: Date;
+        password: string;
+        isMail: boolean;
+        phamarcyId: string;
+        adress: string;
+        createdById: string;
+        updatedById: string;
+        identityId:string;
+        role: number;
+        phoneNumber: string;
+        token: string;
     } | null>>;
   }
 
@@ -85,8 +113,22 @@ export const UserContext = createContext<UserContextType>({
 const UserProvider: React.FC<any> = ({ children }: any) => {
     console.log("başladı")
   const [user, setUser] = useState<{
-    name: string;
-    email: string;
+    fullName: string;
+    mail: string;
+    _id: string;
+    deleted: boolean;
+    createdDate: Date;
+    updatedDate: Date;
+    password: string;
+    isMail: boolean;
+    phamarcyId: string;
+    adress: string;
+    createdById: string;
+    updatedById: string;
+    identityId:string;
+    role: number;
+    phoneNumber: string;
+    token: string;
   } | null>(null);
 
   return (
