@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useParams, Link } from 'react-router-dom'
 import { fetchPhamarcyById , fetchPhamarcyByIdDelete, fetchPhamarcyCreate} from '../../services/phamarcy/phamarcy.service';
@@ -19,8 +19,15 @@ import moment from 'moment';
 import { useFormik } from 'formik';
 import validationSchema from './validate'
 import { UserContext } from '../../context/AuthContext';
+import ReactDOM from 'react-dom';
 export default function PhamarcyCreate() {
     const { user, setUser } = useContext(UserContext);
+    const [isCreated, setIsCreated] = useState(false);
+    const [isStatus, setIsStatus] = useState(false);
+    const [isMessage, setIsMessage] = useState("");
+    const MyComponent = () => {
+        return <div>Hello from MyComponent!</div>;
+      };
     const formik = useFormik({
         initialValues: {
             phamarcyName:"",
@@ -39,16 +46,69 @@ export default function PhamarcyCreate() {
                   if (!values.adress) {
                     bag.setErrors({ phoneNumber: 'Please enter a valid adress' });
                   }
-                const data = fetchPhamarcyCreate(values,user?.token)
-                console.log(data);
+                const data = await fetchPhamarcyCreate(values,user?.token)
+                if(data){
+                    setIsCreated(true);
+                    console.log(data)
+                    setIsStatus(data.status)
+                    setIsMessage(data.message)
+                    console.log(isMessage)
+                }
             } catch (error) {
-                console.log("bilinmeyen bir hata oluştu")
+                console.log(error)
             }
         }
     })
     return (
         <>
-        <form onSubmit={formik.handleSubmit}>
+        {isStatus ? (
+            <>
+            <Alert
+  status='success'
+  variant='subtle'
+  flexDirection='column'
+  alignItems='center'
+  justifyContent='center'
+  textAlign='center'
+  height='200px'
+>
+  <AlertIcon boxSize='40px' mr={0} />
+  <AlertTitle mt={4} mb={1} fontSize='lg'>
+    Eczane Oluşturuldu
+  </AlertTitle>
+</Alert>
+            </>
+        ) : (
+            <>
+            {(isMessage=="") ? (
+                 <>
+             </>
+            ) : (
+                <>
+                <>
+                    <Alert
+  status='error'
+  variant='subtle'
+  flexDirection='column'
+  alignItems='center'
+  justifyContent='center'
+  textAlign='center'
+  height='200px'
+>
+  <AlertIcon boxSize='40px' mr={0} />
+  <AlertTitle mt={4} mb={1} fontSize='lg'>
+    Hata
+  </AlertTitle>
+  <AlertDescription maxWidth='sm'>
+                Eczane Oluşmadı sebebi : {isMessage}
+  </AlertDescription>
+</Alert>
+                </>
+                </>
+            )}
+            </>
+        )}
+            <form onSubmit={formik.handleSubmit}>
         <FormControl>
         <Box my={5}>
                         {
@@ -103,11 +163,11 @@ export default function PhamarcyCreate() {
                 </Descriptions.Item>
             </Descriptions>
         </FormControl>
-        <Button mt={5} colorScheme="blue"  id="button" type='submit'>
+        <Button  mt={5} colorScheme="blue"  id="button" type='submit'>
                     Oluştur
                 </Button>
         </form>
-                
-    </>
+               
+            </>
     )
 }

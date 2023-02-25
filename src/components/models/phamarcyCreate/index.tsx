@@ -5,7 +5,7 @@ import { useParams, Link } from 'react-router-dom'
 import { FullscreenExitOutlined } from '@ant-design/icons'
 import { fetchPhamarcyById, fetchPhamarcyByIdUpdate } from '../../../services/phamarcy/phamarcy.service';
 import { useQuery } from 'react-query';
-import { FormControl, FormLabel, Heading, Box, Flex, Input, Alert , Button} from '@chakra-ui/react'
+import { FormControl, FormLabel, Heading, Box, Flex, Input, Alert , Button, AlertIcon, AlertTitle, AlertDescription} from '@chakra-ui/react'
 import validationSchema from './validate'
 import { useFormik } from 'formik'
 import { UserContext } from '../../../context/AuthContext';
@@ -13,7 +13,10 @@ export default function PhamarcyCreateModel() {
     const { user, setUser } = useContext(UserContext);
    const [modal, setModal] = useState(false);
    const { phamarcy_id } = useParams();
+   const [isStatus, setIsStatus] = useState(false);
+   const [isMessage, setIsMessage] = useState("");
    const { isLoading, error, data } = useQuery(["phamarcy", phamarcy_id], () => fetchPhamarcyById(phamarcy_id,user?.token))
+   
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -35,8 +38,15 @@ export default function PhamarcyCreateModel() {
               if (!values.adress) {
                 bag.setErrors({ phoneNumber: 'Please enter a valid adress' });
               }
-            const data = fetchPhamarcyByIdUpdate(phamarcy_id,values,user?.token)
-            console.log(data);
+            const data = await fetchPhamarcyByIdUpdate(phamarcy_id,values,user?.token)
+            if(data){
+                console.log(data)
+                console.log(isStatus)
+                setIsStatus(data.status)
+                console.log(isStatus + " Güncellendikten sonra")
+                setIsMessage(data.data)
+                console.log(isMessage + "mesaj")
+            }
         } catch (error) {
             console.log("bilinmeyen bir hata oluştu")
         }
@@ -56,10 +66,58 @@ export default function PhamarcyCreateModel() {
                 
 
       {modal && (
+        
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
             <h2><b>{data.phamarcyName} </b> Eczanesini Güncelle</h2>
+            {isStatus ? (
+            <>
+            <Alert
+  status='success'
+  variant='subtle'
+  flexDirection='column'
+  alignItems='center'
+  justifyContent='center'
+  textAlign='center'
+  height='200px'
+>
+  <AlertIcon boxSize='40px' mr={0} />
+  <AlertTitle mt={4} mb={1} fontSize='lg'>
+    Eczane Güncellendi
+  </AlertTitle>
+</Alert>
+            </>
+        ) : (
+            <>
+            {(isMessage=="") ? (
+                 <>
+             </>
+            ) : (
+                <>
+                <>
+                    <Alert
+  status='error'
+  variant='subtle'
+  flexDirection='column'
+  alignItems='center'
+  justifyContent='center'
+  textAlign='center'
+  height='200px'
+>
+  <AlertIcon boxSize='40px' mr={0} />
+  <AlertTitle mt={4} mb={1} fontSize='lg'>
+    Hata
+  </AlertTitle>
+  <AlertDescription maxWidth='sm'>
+                Eczane Güncellenmedi sebebi : {isMessage}
+  </AlertDescription>
+</Alert>
+                </>
+                </>
+            )}
+            </>
+        )}
             <br />
             <p>
             <Box  my={5} textAlign="left">

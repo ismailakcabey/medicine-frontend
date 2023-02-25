@@ -37,12 +37,15 @@ export default function PharmacyDetail() {
     }
     return (
         <>
-                <PhamarcyCreateModel/>
+                
             
                 <Button onClick={()=>fetchPhamarcyByIdDelete(phamarcy_id,user?.token)} id={styles.button} type="primary" danger size="large">
                     Sil
                 </Button>
             <Descriptions title="Eczane Bilgileri" bordered>
+            <Descriptions.Item label="Güncelle">
+            <PhamarcyCreateModel/>
+            </Descriptions.Item>
                 <Descriptions.Item label="Eczane Adı">{data.phamarcyName}</Descriptions.Item>
                 <Descriptions.Item label="Oluşturulma Tarihi">{moment(data.createdDate).format("DD/MM/YYYY")}</Descriptions.Item>
                 <Descriptions.Item label="Güncelleme Tarihi">{moment(data.updatedDate).format("DD/MM/YYYY")}</Descriptions.Item>

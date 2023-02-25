@@ -1,5 +1,5 @@
 import React, { Component, useContext } from 'react'
-import { FormControl, FormLabel, Heading, Box, Flex, Input, Button, Alert } from '@chakra-ui/react'
+import { FormControl, FormLabel, Heading, Box, Flex, Input, Button, Alert, AlertIcon, AlertTitle, AlertDescription } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import validationSchema from './validate'
 import { userLogin } from '../../../services/user/user.service'
@@ -32,8 +32,31 @@ export default function Login() {
     }
   })
     return (
+        
       <div>
-            <Flex align="center" width="full" justifyContent="center">
+        {user ? (
+                <>
+                    <Alert
+  status='success'
+  variant='subtle'
+  flexDirection='column'
+  alignItems='center'
+  justifyContent='center'
+  textAlign='center'
+  height='200px'
+>
+  <AlertIcon boxSize='40px' mr={0} />
+  <AlertTitle mt={4} mb={1} fontSize='lg'>
+    Giriş Yapıldı 
+  </AlertTitle>
+  <AlertDescription maxWidth='sm'>
+    {user.fullName} Hoşgeldin sisteme giriş yaptın tebrikler
+  </AlertDescription>
+</Alert>
+                </>
+            ) : (
+                <>
+                <Flex align="center" width="full" justifyContent="center">
                 <Box pt={10}>
                     <Box textAlign="center">
                         Giriş Yap
@@ -75,6 +98,10 @@ export default function Login() {
                     </Box>
                 </Box>
             </Flex>
+                </>
+
+            )}
+            
         </div>
     )
   }

@@ -36,12 +36,13 @@ export default function UserDetail() {
   return (
     <>
 
-    <UserUpdateModel/>
+    
 
     <Button onClick={()=>deleteUser(data.data._id , user?.token)} id={styles.button} type="primary" danger size="large">
         Sil
     </Button>
 <Descriptions title="Kullanıcı Bilgileri" bordered>
+<Descriptions.Item label="Güncelle"><UserUpdateModel/></Descriptions.Item>
     <Descriptions.Item label="Kullanıcı Adı">{data.data.fullName}</Descriptions.Item>
     <Descriptions.Item label="Oluşturulma Tarihi">{moment(data.data.createdDate).format("DD/MM/YYYY")}</Descriptions.Item>
     <Descriptions.Item label="Güncelleme Tarihi">{moment(data.data.updatedDate).format("DD/MM/YYYY")}</Descriptions.Item>

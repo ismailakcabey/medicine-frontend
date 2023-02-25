@@ -32,6 +32,9 @@ const AlertComponent = ({ data }: any) => {
   };
 
 export default function UserUpdateModel() {
+
+  const [isStatus, setIsStatus] = useState(false);
+  const [isMessage, setIsMessage] = useState("");
   const { user, setUser } = useContext(UserContext);
    const [modal, setModal] = useState(false);
    const { user_id } = useParams();
@@ -70,11 +73,13 @@ export default function UserUpdateModel() {
               if (!values.identityId) {
                 bag.setErrors({ identityId: 'Please enter a valid adress' });
               }
-            const data = updateUserById(user_id, values , user?.token)
-            // @ts-ignore
-              if(data?.status == true){
-                updateUserStatus = true
-              }
+            const data = await updateUserById(user_id, values , user?.token)
+            if(data){
+              console.log(data)
+              console.log(isStatus)
+              setIsStatus(data.status)
+              setIsMessage(data.message)
+          }
             console.log(data);
         } catch (error) {
             console.log("bilinmeyen bir hata oluştu")
@@ -99,7 +104,53 @@ export default function UserUpdateModel() {
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
             <h2><b>{data?.data?.fullName}</b> Kullanıcısını Güncelle</h2>
-            <br />
+            {isStatus ? (
+            <>
+            <Alert
+  status='success'
+  variant='subtle'
+  flexDirection='column'
+  alignItems='center'
+  justifyContent='center'
+  textAlign='center'
+  height='200px'
+>
+  <AlertIcon boxSize='40px' mr={0} />
+  <AlertTitle mt={4} mb={1} fontSize='lg'>
+    Kullanıcı Güncellendi
+  </AlertTitle>
+</Alert>
+            </>
+        ) : (
+            <>
+            {(isMessage=="") ? (
+                 <>
+             </>
+            ) : (
+                <>
+                <>
+                    <Alert
+  status='error'
+  variant='subtle'
+  flexDirection='column'
+  alignItems='center'
+  justifyContent='center'
+  textAlign='center'
+  height='200px'
+>
+  <AlertIcon boxSize='40px' mr={0} />
+  <AlertTitle mt={4} mb={1} fontSize='lg'>
+    Hata
+  </AlertTitle>
+  <AlertDescription maxWidth='sm'>
+                Kullanıcı Güncellenmedi sebebi : {isMessage}
+  </AlertDescription>
+</Alert>
+                </>
+                </>
+            )}
+            </>
+        )}
             <p>
             <Box  my={5} textAlign="left">
             <Box my={5}>
