@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import { Grid } from '@chakra-ui/react'
-import { useQuery, useInfiniteQuery } from 'react-query'
+import { useQuery } from 'react-query'
 import {
     Alert,
     AlertIcon,
@@ -12,19 +11,16 @@ import {
     Table,
     Thead,
     Tbody,
-    Tfoot,
     Tr,
     Th,
     Td,
-    TableCaption,
     TableContainer,
 } from '@chakra-ui/react'
-import { Descriptions, Badge, Button } from 'antd';
-import UserUpdateModel from '../../components/models/userUpdate'
+import {  Button } from 'antd';
 import { UserContext } from '../../context/AuthContext'
 
 export default function User() {
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const { isLoading, error, data } = useQuery('user',() => fetchUserList(user?.token))
     if (isLoading) {
         return (
@@ -34,7 +30,7 @@ export default function User() {
             </Alert>
         )
     }
-    if(user?.token == undefined){
+    if(!user?.token){
         return(
             <Alert status='warning'>
                 <AlertIcon />
